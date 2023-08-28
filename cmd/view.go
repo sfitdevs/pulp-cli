@@ -11,8 +11,16 @@ var viewCmd = &cobra.Command{
 	Short: "View the content of the pulp",
 	Run: func(cmd *cobra.Command, args []string) {
 		var getResponse GetResponse
-		Client.SetResult(&getResponse).Get(fmt.Sprintf("%s/%s", Api, args[0]))
-		fmt.Println(getResponse.Content)
+		_, err := Client.SetResult(&getResponse).Get(fmt.Sprintf("%s/%s", Api, args[0]))
+		if err != nil {
+			fmt.Println("- error: " + err.Error())
+		} else {
+			if getResponse.Key != "" {
+				fmt.Println(getResponse.Content)
+			} else {
+				fmt.Println("- error: pulp not found")
+			}
+		}
 	},
 }
 

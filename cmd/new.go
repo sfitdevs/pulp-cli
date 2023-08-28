@@ -17,10 +17,18 @@ var newCmd = &cobra.Command{
 		var postResponse PostResponse
 		var file string = string(args[0])
 		var language []string = strings.Split(file, ".")
-		content, _ := os.ReadFile(file)
-		body := PostData{Content: string(content), Language: string(language[len(language)-1])}
-		Client.SetHeader("Content-Type", "application/json").SetBody(body).SetResult(&postResponse).Post(Api)
-		fmt.Println("- code: " + postResponse.Key + "\n- link: " + color.InBlue(fmt.Sprintf("https://p.aadi.lol/%s", postResponse.Key)) + "\n- access key: " + color.InGray(postResponse.AccessKey) + " (used to delete pulp)")
+		content, err := os.ReadFile(file)
+		if err != nil {
+			fmt.Println("- error: " + err.Error())
+		} else {
+			body := PostData{Content: string(content), Language: string(language[len(language)-1])}
+			_, err := Client.SetHeader("Content-Type", "application/json").SetBody(body).SetResult(&postResponse).Post(Api)
+			if err != nil {
+				fmt.Println("- error: " + err.Error())
+			} else {
+				fmt.Println("- code: " + postResponse.Key + "\n- link: \033[4mhttps://p.aadi.lol/" + postResponse.Key + "\033[0m\n- access key: " + color.InGray(postResponse.AccessKey) + " (used to delete pulp)")
+			}
+		}
 	},
 }
 

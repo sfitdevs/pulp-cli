@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var Api string = "https://j2me.eu.org/api"
+var Api string = "https://p.aadi.lol/api"
 var Client *resty.Request = resty.New().R()
 
 var rootCmd = &cobra.Command{
