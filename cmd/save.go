@@ -8,26 +8,33 @@ import (
 )
 
 var saveCmd = &cobra.Command{
-	Use:   "save <pulp-code>",
-	Short: "Save the pulp to local filesystem",
-	Args:  cobra.MinimumNArgs(1),
+	Use:     "save <pulp-code>",
+	Short:   "Save the pulp to local filesystem",
+	Args:    cobra.MinimumNArgs(1),
+	Aliases: []string{"s"},
 	Run: func(cmd *cobra.Command, args []string) {
 		var getResponse GetResponse
-		_, err := Client.SetResult(&getResponse).Get(fmt.Sprintf("%s/%s", Api, args[0]))
+		resp, err := Client.SetResult(&getResponse).Get(API + args[0])
+		statuscode := resp.StatusCode()
 		if err != nil {
 			fmt.Println("- error: " + err.Error())
 		} else {
-			if getResponse.Key != "" {
-				f, err := os.Create(fmt.Sprintf("%s.%s", getResponse.Key, getResponse.Language))
+			if statuscode == 200 {
+				filename := getResponse.Key + "." + getResponse.Language
+				file, err := os.Create(filename)
 				if err != nil {
 					fmt.Println("- error: " + err.Error())
 				} else {
-					f.WriteString(getResponse.Content)
-					fmt.Printf("- message: pulp saved successfully as %s.%s\n", getResponse.Key, getResponse.Language)
-					defer f.Close()
+					file.WriteString(getResponse.Content)
+					fmt.Printf("- message: pulp saved successfully as %s\n", filename)
+					defer file.Close()
 				}
-			} else {
+			} else if statuscode == 404 {
 				fmt.Println("- error: pulp not found")
+			} else if statuscode == 500 {
+				fmt.Println("- error: internal server error")
+			} else {
+				fmt.Println("- error: something went wrong")
 			}
 		}
 	},
