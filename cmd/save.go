@@ -7,6 +7,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var filename string
+
 var saveCmd = &cobra.Command{
 	Use:     "save <pulp-code>",
 	Short:   "Save the pulp to local filesystem",
@@ -20,7 +22,9 @@ var saveCmd = &cobra.Command{
 			fmt.Println("- error: " + err.Error())
 		} else {
 			if statuscode == 200 {
-				filename := getResponse.Key + "." + getResponse.Language
+				if filename == "" {
+					filename = getResponse.Key + "." + getResponse.Language
+				}
 				file, err := os.Create(filename)
 				if err != nil {
 					fmt.Println("- error: " + err.Error())
@@ -41,5 +45,6 @@ var saveCmd = &cobra.Command{
 }
 
 func init() {
+	saveCmd.Flags().StringVarP(&filename, "filename", "f", "", "filename to save file as")
 	rootCmd.AddCommand(saveCmd)
 }
