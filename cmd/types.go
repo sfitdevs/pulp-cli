@@ -24,6 +24,6 @@ type GetResponse struct {
 	Views     int    `json:"views"`
 }
 
-type DelResponse struct {
-	AccessKey string `json:"accesskey"`
+type DelData struct {
+	AccessKey string `json:"accessKey"`
 }
