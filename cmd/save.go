@@ -13,7 +13,7 @@ var saveCmd = &cobra.Command{
 	Use:     "save <pulp-code>",
 	Short:   "Save the pulp to local filesystem",
 	Args:    cobra.MinimumNArgs(1),
-	Aliases: []string{"s"},
+	Aliases: []string{"s", "dl", "clone"},
 	Run: func(cmd *cobra.Command, args []string) {
 		var getResponse GetResponse
 		resp, err := Client.SetResult(&getResponse).Get(API + args[0])

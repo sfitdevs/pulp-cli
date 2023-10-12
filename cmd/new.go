@@ -13,7 +13,7 @@ var newCmd = &cobra.Command{
 	Use:     "new <filename>",
 	Short:   "Create a new pulp to share",
 	Args:    cobra.MinimumNArgs(1),
-	Aliases: []string{"n"},
+	Aliases: []string{"n", "create"},
 	Run: func(cmd *cobra.Command, args []string) {
 		var postResponse PostResponse
 		var file string = string(args[0])
