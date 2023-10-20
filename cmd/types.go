@@ -27,3 +27,8 @@ type GetResponse struct {
 type DelData struct {
 	AccessKey string `json:"accessKey"`
 }
+
+type Pulp struct {
+	Key       string `json:"key"`
+	AccessKey string `json:"accessKey"`
+}
