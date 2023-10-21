@@ -9,7 +9,7 @@ import (
 
 var clearCmd = &cobra.Command{
 	Use:   "clear",
-	Short: "A brief description of your command",
+	Short: "Clear the list of your created pulps",
 	Run: func(cmd *cobra.Command, args []string) {
 		err := os.Remove(Path)
 		if err != nil {

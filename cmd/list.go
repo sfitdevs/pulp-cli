@@ -12,7 +12,7 @@ import (
 
 var ListCmd = &cobra.Command{
 	Use:   "list",
-	Short: "A brief description of your command",
+	Short: "List all pulps created by you",
 	Run: func(cmd *cobra.Command, args []string) {
 		var pulps []Pulp
 		content, _ := os.ReadFile(Path)
