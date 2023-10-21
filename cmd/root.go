@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/go-resty/resty/v2"
@@ -9,6 +10,8 @@ import (
 
 var API string = "https://p.aadi.lol/api/"
 var Client *resty.Request = resty.New().R()
+var home, _ = os.UserHomeDir()
+var Path = fmt.Sprintf("%s\\.pulp\\pulps.json", home)
 
 var rootCmd = &cobra.Command{
 	Use:   "pulp",
@@ -23,5 +26,12 @@ func Execute() {
 }
 
 func init() {
+	cobra.OnInitialize(initConfig)
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
+}
+
+func initConfig() {
+	if _, err := os.Stat(Path); err != nil {
+		os.Create(Path)
+	}
 }

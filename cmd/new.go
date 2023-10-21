@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
@@ -29,6 +30,17 @@ var newCmd = &cobra.Command{
 				fmt.Println("- error: " + err.Error())
 			} else {
 				if statuscode == 200 {
+					var pulpsStored []Pulp
+					var pulpsAppend []Pulp
+					var newPulp Pulp
+					content, _ := os.ReadFile(Path)
+					json.Unmarshal(content, &pulpsStored)
+					newPulp.Key = postResponse.Key
+					newPulp.AccessKey = postResponse.AccessKey
+					newPulp.TimeStamp = postResponse.TimeStamp
+					pulpsAppend = append(pulpsStored, newPulp)
+					newContent, _ := json.Marshal(pulpsAppend)
+					os.WriteFile(Path, newContent, 0644)
 					fmt.Println("- code: " + postResponse.Key + "\n- link: \033[4mhttps://p.aadi.lol/" + postResponse.Key + "\033[0m\n- access key: " + color.InGray(postResponse.AccessKey) + " (used to delete pulp)")
 				} else if statuscode == 500 {
 					fmt.Println("- error: internal server error")

@@ -31,4 +31,5 @@ type DelData struct {
 type Pulp struct {
 	Key       string `json:"key"`
 	AccessKey string `json:"accessKey"`
+	TimeStamp int64  `json:"timestamp"`
 }
