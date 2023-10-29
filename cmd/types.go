@@ -14,6 +14,7 @@ type PostResponse struct {
 	Size      int    `json:"size"`
 	TimeStamp int64  `json:"timestamp"`
 	Views     int    `json:"views"`
+	Description string `json:"description"`
 }
 
 type GetResponse struct {
@@ -23,6 +24,7 @@ type GetResponse struct {
 	Size      int    `json:"size"`
 	TimeStamp int64  `json:"timestamp"`
 	Views     int    `json:"views"`
+	Description string `json:"description"`
 }
 
 type DelData struct {
