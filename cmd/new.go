@@ -10,6 +10,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var description string
+
 var newCmd = &cobra.Command{
 	Use:     "new <filename>",
 	Short:   "Create a new pulp to share",
@@ -23,7 +25,7 @@ var newCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("- error: " + err.Error())
 		} else {
-			body := PostData{Content: string(content), Language: string(language[len(language)-1])}
+			body := PostData{Content: string(content), Language: string(language[len(language)-1]), Description: string(description)}
 			resp, err := Client.SetHeader("Content-Type", "application/json").SetBody(body).SetResult(&postResponse).Post(API)
 			statuscode := resp.StatusCode()
 			if err != nil {
@@ -41,7 +43,7 @@ var newCmd = &cobra.Command{
 					pulpsAppend = append(pulpsStored, newPulp)
 					newContent, _ := json.Marshal(pulpsAppend)
 					os.WriteFile(Path, newContent, 0644)
-					fmt.Println("- code: " + postResponse.Key + "\n- link: \033[4mhttps://p.aadi.lol/" + postResponse.Key + "\033[0m\n- access key: " + color.InGray(postResponse.AccessKey) + " (used to delete pulp)")
+					fmt.Println("- code: " + postResponse.Key + "\n- link: \033[4mhttps://pulp.deta.dev/" + postResponse.Key + "\033[0m\n- access key: " + color.InGray(postResponse.AccessKey) + " (used to delete pulp)")
 				} else if statuscode == 500 {
 					fmt.Println("- error: internal server error")
 				} else {
@@ -53,5 +55,6 @@ var newCmd = &cobra.Command{
 }
 
 func init() {
+	newCmd.Flags().StringVarP(&description, "description", "d", "", "description of the file")
 	rootCmd.AddCommand(newCmd)
 }

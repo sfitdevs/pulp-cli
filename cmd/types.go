@@ -1,8 +1,9 @@
 package cmd
 
 type PostData struct {
-	Content  string `json:"content"`
-	Language string `json:"language"`
+	Content     string `json:"content"`
+	Language    string `json:"language"`
+	Description string `json:"description"`
 }
 
 type PostResponse struct {

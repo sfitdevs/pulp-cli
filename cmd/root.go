@@ -8,8 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var API string = "https://p.aadi.lol/api/"
-var Host string = "https://p.aadi.lol"
+var API string = "https://pulp.deta.dev/api/"
+var Host string = "https://pulp.deta.dev"
 var Client *resty.Request = resty.New().R()
 var home, _ = os.UserHomeDir()
 var Path = fmt.Sprintf("%s\\.pulp\\pulps.json", home)

@@ -21,7 +21,7 @@ var infoCmd = &cobra.Command{
 			fmt.Println("- error: " + err.Error())
 		} else {
 			if statuscode == 200 {
-				fmt.Printf("- key: %s\n- link: %shttps://p.aadi.lol/%s%s\n- language: %s\n- created: %s\n- size: %d bytes\n- views: %d\n", getResponse.Key, color.Underline, getResponse.Key, color.Reset, getResponse.Language, time.UnixMilli(getResponse.TimeStamp).Format("02/01/2006 15:04 MST"), getResponse.Size, getResponse.Views)
+				fmt.Printf("- key: %s\n- link: %shttps://pulp.deta.dev/%s%s\n- language: %s\n- created: %s\n- size: %d bytes\n- views: %d\n", getResponse.Key, color.Underline, getResponse.Key, color.Reset, getResponse.Language, time.UnixMilli(getResponse.TimeStamp).Format("02/01/2006 15:04 MST"), getResponse.Size, getResponse.Views)
 			} else if statuscode == 404 {
 				fmt.Println("- error: pulp not found")
 			} else if statuscode == 500 {
