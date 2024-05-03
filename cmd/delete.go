@@ -8,11 +8,11 @@ import (
 
 var deleteCmd = &cobra.Command{
 	Use:     "delete <access-key>",
-	Args:    cobra.MinimumNArgs(1),
+	Args:    cobra.MinimumNArgs(2),
 	Short:   "Delete a pulp using access-key",
 	Aliases: []string{"d"},
 	Run: func(cmd *cobra.Command, args []string) {
-		body := DelData{AccessKey: args[0]}
+		body := DelData{AccessKey: args[1], Key: args[0]}
 		resp, err := Client.SetHeader("Content-Type", "application/json").SetBody(body).Delete(API)
 		statuscode := resp.StatusCode()
 		if err != nil {

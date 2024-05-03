@@ -15,13 +15,13 @@ var infoCmd = &cobra.Command{
 	Aliases: []string{"i"},
 	Run: func(cmd *cobra.Command, args []string) {
 		var getResponse GetResponse
-		resp, err := Client.SetResult(&getResponse).Get(API + args[0])
+		resp, err := Client.SetResult(&getResponse).Get(API +"/"+ args[0])
 		statuscode := resp.StatusCode()
 		if err != nil {
 			fmt.Println("- error: " + err.Error())
 		} else {
 			if statuscode == 200 {
-				fmt.Printf("- key: %s\n- link: %shttps://pulp.deta.dev/%s%s\n- description: %s\n- language: %s\n- created: %s\n- size: %d bytes\n- views: %d\n", getResponse.Key, color.Underline, getResponse.Key, color.Reset, getResponse.Description, getResponse.Language, time.UnixMilli(getResponse.TimeStamp).Format("02/01/2006 15:04 MST"), getResponse.Size, getResponse.Views)
+				fmt.Printf("- key: %s\n- link: %shttps://pulp.deta.dev/%s%s\n- title: %s\n- language: %s\n- created: %s\n- views: %d\n", getResponse.Key, color.Underline, getResponse.Key, color.Reset, getResponse.Title, getResponse.Language, time.UnixMilli(getResponse.TimeStamp).Format("02/01/2006 15:04 MST"), getResponse.Views)
 			} else if statuscode == 404 {
 				fmt.Println("- error: pulp not found")
 			} else if statuscode == 500 {

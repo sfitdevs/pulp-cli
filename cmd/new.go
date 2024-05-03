@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var description string
+var title string
 
 var newCmd = &cobra.Command{
 	Use:     "new <filename>",
@@ -25,7 +25,7 @@ var newCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("- error: " + err.Error())
 		} else {
-			body := PostData{Content: string(content), Language: string(language[len(language)-1]), Description: string(description)}
+			body := PostData{Content: string(content), Language: string(language[len(language)-1]), Title: string(title), Images : []string{}}
 			resp, err := Client.SetHeader("Content-Type", "application/json").SetBody(body).SetResult(&postResponse).Post(API)
 			statuscode := resp.StatusCode()
 			if err != nil {
@@ -55,6 +55,6 @@ var newCmd = &cobra.Command{
 }
 
 func init() {
-	newCmd.Flags().StringVarP(&description, "description", "d", "", "description of the file")
+	newCmd.Flags().StringVarP(&title, "title", "t", "", "title of the file")
 	rootCmd.AddCommand(newCmd)
 }

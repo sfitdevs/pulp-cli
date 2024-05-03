@@ -3,7 +3,8 @@ package cmd
 type PostData struct {
 	Content     string `json:"content"`
 	Language    string `json:"language"`
-	Description string `json:"description"`
+	Title string `json:"title"`
+	Images []string `json:"images"`
 }
 
 type PostResponse struct {
@@ -11,10 +12,10 @@ type PostResponse struct {
 	Content   string `json:"content"`
 	Key       string `json:"key"`
 	Language  string `json:"language"`
-	Size      int    `json:"size"`
 	TimeStamp int64  `json:"timestamp"`
 	Views     int    `json:"views"`
-	Description string `json:"description"`
+	Title string `json:"title"`
+	Images []string `json:"images"`
 }
 
 type GetResponse struct {
@@ -24,11 +25,12 @@ type GetResponse struct {
 	Size      int    `json:"size"`
 	TimeStamp int64  `json:"timestamp"`
 	Views     int    `json:"views"`
-	Description string `json:"description"`
+	Title string `json:"title"`
 }
 
 type DelData struct {
 	AccessKey string `json:"accessKey"`
+	Key       string `json:"key"`
 }
 
 type Pulp struct {
