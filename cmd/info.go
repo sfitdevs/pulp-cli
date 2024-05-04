@@ -15,7 +15,7 @@ var infoCmd = &cobra.Command{
 	Aliases: []string{"i"},
 	Run: func(cmd *cobra.Command, args []string) {
 		var getResponse GetResponse
-		resp, err := Client.SetResult(&getResponse).Get(API +"/"+ args[0])
+		resp, err := Client.SetResult(&getResponse).Get(API + args[0])
 		statuscode := resp.StatusCode()
 		if err != nil {
 			fmt.Println("- error: " + err.Error())

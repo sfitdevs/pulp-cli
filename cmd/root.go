@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var API string = "https://pulp.deta.eu.org/pulp"
+var API string = "https://pulp.deta.eu.org/pulp/"
 var Host string = "https://pulpx.vercel.app"
 var Client *resty.Request = resty.New().R()
 var home, _ = os.UserHomeDir()
